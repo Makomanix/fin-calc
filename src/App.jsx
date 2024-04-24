@@ -10,21 +10,29 @@ const INITIAL_VALUES = {
 }
 
 
+
 function App() {
 
-  const [ inputs, setInputs ] = useState({INITIAL_VALUES});
+  const [ inputs, setInputs ] = useState(INITIAL_VALUES);
 
-  const keys = Object.keys(inputs);
-  console.log(inputs)
-
-  // let userInputs = inputs.map((input, index) => <UserInput key={index} value={input[keys[index]]} title={keys[index]}/>);
 
   
+  function handleInputChange(e) {
+    const { value, name } = e.target;
+    setInputs(prevInputs => {
+      return {
+        ...prevInputs,
+        [name]: value
+      }
+    })
+  }
+
+  console.log(inputs);
 
   return (
     <div>
       <Header />
-      {/* {userInputs} */}
+      <UserInput inputs={inputs} handleChange={handleInputChange}/>
     </div>
   )
 }
