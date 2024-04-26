@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Header from './components/Header'
 import UserInput from './components/UserInput';
 import ResultsTable from './components/ResultsTable';
+import { calculateInvestmentResults } from './util/investment'
 
 const INITIAL_VALUES = {
   initialInvestment: '',
@@ -16,7 +17,7 @@ function App() {
 
   const [ inputs, setInputs ] = useState(INITIAL_VALUES);
 
-
+console.log(calculateInvestmentResults(inputs))
   
   function handleInputChange(e) {
     const { value, name } = e.target;
@@ -28,7 +29,7 @@ function App() {
     })
   }
 
-  console.log(inputs);
+  console.log();
 
   return (
     <div>
