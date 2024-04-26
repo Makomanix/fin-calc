@@ -1,15 +1,23 @@
-export default function ResultsTable({data}) {
+import { calculateInvestmentResults, formatter } from '../util/investment'
 
-//will need some way to loop over data to create table data maybe map maybe for loop
-    // const tableResults = data.map(item => {
-    //     <tr key={item.year}>
-    //         <td>item[year]</td>
-    //         <td>item[initialInvestment]</td>
-    //         <td></td>
-    //         <td></td>
-    //         <td></td>
-    //     </tr>
-    // })
+export default function ResultsTable({ inputs }) {
+    const { initialInvestment, annualInvestment, expectedReturn, duration } = inputs
+
+    const results = calculateInvestmentResults(inputs)
+// will need some way to loop over data to create table data maybe map maybe for loop
+    const tableResults = results.map(yearResults => {
+        const totalInterest = yearResults.valueEndOfYear - yearResults.annualInvestment * yearResults.year - initialInvestment;
+        const investedCapital = initialInvestment + yearResults.annualInvestment * yearResults.year;
+        return (
+        <tr key={yearResults.year}>
+            <td>{yearResults.year}</td>
+            <td>{formatter.format(yearResults.valueEndOfYear)}</td>
+            <td>{formatter.format(yearResults.interest)}</td>
+            <td>{formatter.format(totalInterest)}</td>
+            <td>{formatter.format(investedCapital)}</td>
+        </tr>
+        )
+    })
 
     return (
         <table id="result">
@@ -23,7 +31,7 @@ export default function ResultsTable({data}) {
                 </tr>
             </thead>
             <tbody>
-            
+                {tableResults}
             </tbody>
         </table>
     )
