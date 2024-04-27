@@ -11,16 +11,17 @@ const INITIAL_VALUES = {
 }
 
 
-
 function App() {
 
   const [ inputs, setInputs ] = useState(INITIAL_VALUES);
 
-  console.log(inputs)
+  const inputIsValid = inputs.duration >= 1;
+
+  // console.log(inputs)
   
   function handleInputChange(e) {
     const { value, name } = e.target;
-    console.log(name, typeof(value));
+    // console.log(name, typeof(value));
     setInputs(prevInputs => {
       return {
         ...prevInputs,
@@ -33,7 +34,7 @@ function App() {
     <>
       <Header />
       <UserInput inputs={inputs} handleChange={handleInputChange}/>
-      <ResultsTable inputs={inputs} />
+      {inputIsValid ? <ResultsTable inputs={inputs}/> : <p className='center'>Please enter a duration greater than zero.</p>} 
     </>
   )
 }

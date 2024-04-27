@@ -1,10 +1,11 @@
 import { calculateInvestmentResults, formatter } from '../util/investment'
 
 export default function ResultsTable({ inputs }) {
-    const { initialInvestment, annualInvestment, expectedReturn, duration } = inputs
+    const { initialInvestment, duration } = inputs
+
 
     const results = calculateInvestmentResults(inputs)
-// will need some way to loop over data to create table data maybe map maybe for loop
+
     const tableResults = results.map(yearResults => {
         const totalInterest = yearResults.valueEndOfYear - yearResults.annualInvestment * yearResults.year - initialInvestment;
         const investedCapital = initialInvestment + yearResults.annualInvestment * yearResults.year;
